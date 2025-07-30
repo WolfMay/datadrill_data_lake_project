@@ -11,13 +11,13 @@ def summary_report_gold(output_path):
         # Calculate department metrics
 
         # Filter for the most recent salary per employee
-        most_recent_salaries = salaries_enriched_df.sort_values(
+        most_recent_salaries_df = salaries_enriched_df.sort_values(
             ['employee_id', 'year', 'month'],
             ascending=[True, False, False]
         ).drop_duplicates(subset='employee_id', keep='first')
 
         # Group by department for average gross salary and average tenure
-        department_metrics_df = most_recent_salaries.groupby('department').agg(
+        department_metrics_df = most_recent_salaries_df.groupby('department').agg(
             gross_salary_dept_avg=('gross_salary', 'mean'),
             tenure_in_months_dept_avg=('tenure_in_months', 'mean')
         ).reset_index()
